@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>4_基于原型继承的缺点及解决方法</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<script type="text/javascript">
+    //基于原型继承的问题在于：当定义子类的原型，必须显示的调用父类的构造函数，如果父类的构造函数代码耗时，或有破坏性，或程序运行的状态，那就有问题了
+    //Bird.prototype=new Animal();
+    function Shape(){
+
+    };
+    Shape.prototype.name="形状";
+    Shape.prototype.toString=function(){return this.name};
+    
+    //2d继承自shape
+    function TwoDShape(){}
+    TwoDShape.prototype=Shape.prototype;
+    TwoDShape.prototype.constructor=TwoDShape;
+    TwoDShape.prototype.name='2d';
+    //三角形继承自2d
+    function Triangle( bottom,height ){
+        this.bottom=bottom;
+        this.height=height;
+    }
+    Triangle.prototype=TwoDShape.prototype;
+    Triangle.prototype.constructor=Triangle;
+    Triangle.prototype.name='三角形';
+    Triangle.prototype.getArea=function(){
+        return this.bottom*this.height/2;
+    }
+
+    var a=new Triangle(2,3);
+    document.write(a.getArea()+"<br>");     //3
+    document.write(a.name+"<br>");          //三角形
+    var b=new Shape();
+    document.write(b.name+"<br>");          //三角形
+    var c=new TwoDShape();
+    document.write(c.name+"<br>");          //三角形
+    
+    
+</script>
+</body>
+</html>

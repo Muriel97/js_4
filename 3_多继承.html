@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>3_多继承</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<script type="text/javascript">
+    function Animal (group,gender) {
+        this.group=group;
+        this.gender=gender;
+    }
+    Animal.prototype.showInfo = function() {
+        document.write("类别：  "+this.group+"性别：  "+this.gender);
+    }
+
+    function Bird(group,gender){
+        Animal.call(this,group,gender);
+    }
+    Bird.prototype=new Animal();
+    Bird.prototype.constructor=Bird;
+
+    var b1=new Bird("","")
+    b1.showInfo();
+    
+    
+</script>
+</body>
+</html>
